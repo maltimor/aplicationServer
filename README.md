@@ -16,21 +16,28 @@ yum install nano
 
 # Descomprimir Java:
 cd /opt
+
 tar zxvf jdk-7xxxx.gz
+
 ln -s jdk-7xxxx java
 
 # Descomprimir Tomcat:
 cd /opt
+
 tar xvf apache-tomcatxxx.tar.gz
+
 ln -s apache-tomcat-xxxxx tomcat
 
 # Descomprimir maven:
 cd /opt
+
 tar xvf apache-mavenxxxx.tar.gz
+
 ln -s apache-mavenxxxxx maven
 
 # Configurar variables de entorno
 cd /etc/profile.d/
+
 nano java-tomcat.sh
 ```
 export JAVA_HOME=/opt/java
@@ -44,20 +51,29 @@ source /etc/profile
 
 # Copiar wars al tomcat:
 cd /opt
+
 cp scm-xxxxx.war tomcat/webapps/scm.war
+
 cp jenkins.war tomcat/webapps/jenkins.war
+
 cp artifactory.war tomcat/webapps/artifactory.war
 
 # Eliminar aplicaciones no usadas:
 cd /opt
+
 rm -rf tomcat/webapps/ROOT
+
 rm -rf tomcat/webapps/examples
+
 rm -rf tomcat/webapps/docs
+
 rm -rf tomcat/webapps/manager
+
 rm -rf tomcat/webapps/host-manager
 
 # Crear demonio tomcatd:
 cd /etc/init.d/
+
 nano tomcatd
 ```
 #!/bin/bash  
@@ -80,17 +96,24 @@ esac
 exit 0
 ```
 chmod 755 tomcatd
+
 chkconfig --add tomcatd
+
 useradd tomcat
+
 passwd tomcat
 
 Establecer permisos tomcat:
 cd /opt
+
 chown -Rh root:tomcat tomcat
+
 cd tomcat
+
 chown -R tomcat:tomcat logs temp webapps work
 
-Arrancar servidor tomcat:
+# Arrancar servidor tomcat:
+
 service tomcatd start
 
 
